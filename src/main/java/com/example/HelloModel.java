@@ -12,4 +12,7 @@ public class HelloModel {
         String javafxVersion = System.getProperty("javafx.version");
         return "Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".";
     }
+
+
+
 }

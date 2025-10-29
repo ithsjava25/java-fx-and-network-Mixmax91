@@ -1,6 +1,7 @@
 package com.example;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -14,9 +15,16 @@ public class HelloController {
     private Label messageLabel;
 
     @FXML
+    private Button sendButton;
+
+    @FXML
     private void initialize() {
         if (messageLabel != null) {
             messageLabel.setText(model.getGreeting());
         }
+    }
+
+    public HelloModel getModel(){
+        return model;
     }
 }

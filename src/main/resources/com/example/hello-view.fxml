@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.Label?>
 
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.HelloController">
-    <children>
-        <Label fx:id="messageLabel" text="Hello, JavaFX!" />
-    </children>
-</StackPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <Label fx:id="messageLabel"/>
+        </HBox>
+    </top>
+    <center>
+       <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+           <VBox spacing="5"/>
+       </ScrollPane>
+   </center>
+   <bottom>
+      <HBox spacing="3" BorderPane.alignment="CENTER">
+          <TextField HBox.hgrow="ALWAYS">
+
+          </TextField>
+          <Button fx:id="sendButton" text="Send">
+
+          </Button>
+      </HBox>
+
+   </bottom>
+
+</BorderPane>
