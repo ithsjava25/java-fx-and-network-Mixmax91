@@ -3,25 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
     <top>
         <HBox BorderPane.alignment="CENTER">
-            <Label fx:id="messageLabel"/>
+            <Label fx:id="messageLabel" />
         </HBox>
     </top>
     <center>
-       <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-           <VBox spacing="5"/>
-       </ScrollPane>
+               <ListView fx:id="listView"/>
    </center>
    <bottom>
       <HBox spacing="3" BorderPane.alignment="CENTER">
-          <TextField HBox.hgrow="ALWAYS">
+          <TextField fx:id="textField" promptText="Enter message..." HBox.hgrow="ALWAYS" onAction="#sendMessage"/>
 
-          </TextField>
-          <Button fx:id="sendButton" text="Send">
+          <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
 
-          </Button>
       </HBox>
 
    </bottom>
