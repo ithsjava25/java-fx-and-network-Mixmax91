@@ -1,0 +1,12 @@
+.cell-style {
+    -fx-font-size: 14px;
+    -fx-text-fill: darkblue;
+    -fx-background-color: lightgray;
+    -fx-padding: 5px;
+}
+.delete-button {
+    -fx-font-size: 10px;
+    -fx-background-color: #ff6666;
+    -fx-text-fill: white;
+    -fx-padding: 2px 5px;
+}
