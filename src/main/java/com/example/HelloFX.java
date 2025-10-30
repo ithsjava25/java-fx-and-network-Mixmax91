@@ -15,7 +15,7 @@ public class HelloFX extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 640, 480);
         scene.getStylesheets().add(getClass().getResource("/messageStyle.css").toExternalForm());
-        stage.setTitle("Duck Chat");
+        stage.setTitle("Ank Chat");
         stage.getIcons().add(new Image("duck.png"));
         stage.setResizable(false);
         stage.setScene(scene);

@@ -8,7 +8,8 @@
     <center>
         <StackPane>
             <ListView fx:id="listView" />
-            <ImageView fx:id="duckImage" StackPane.alignment="BOTTOM_LEFT" fitWidth="20" fitHeight="20"/>
+            <ImageView fx:id="ankImage" StackPane.alignment="BOTTOM_LEFT" fitWidth="20" fitHeight="20" onMouseClicked="#makeAnkaVisible"/>
+            <ImageView fx:id="hugeAnka" fitWidth="200" fitHeight="200"/>
         </StackPane>
    </center>
    <bottom>
