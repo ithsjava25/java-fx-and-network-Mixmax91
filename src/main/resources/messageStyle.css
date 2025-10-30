@@ -1,12 +1,21 @@
 .cell-style {
     -fx-font-size: 14px;
     -fx-text-fill: darkblue;
-    -fx-background-color: lightgray;
+    -fx-background-color: transparent;
     -fx-padding: 5px;
 }
 .delete-button {
     -fx-font-size: 10px;
-    -fx-background-color: #ff6666;
+    -fx-background-color: orange;
     -fx-text-fill: white;
     -fx-padding: 2px 5px;
+}
+
+.list-view {
+    -fx-background-image: url("serene-duck-close-up-stockcake.jpg");
+    -fx-background-position: center;
+    -fx-background-size: 800, 480;
+    -fx-background-repeat: no-repeat;
+
+
 }

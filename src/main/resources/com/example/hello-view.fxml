@@ -3,23 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
-    <top>
-        <HBox BorderPane.alignment="CENTER">
-            <Label fx:id="messageLabel" />
-        </HBox>
-    </top>
+<?import javafx.scene.image.ImageView?>
+<BorderPane stylesheets="@/messageStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
     <center>
-               <ListView fx:id="listView"/>
+        <StackPane>
+            <ListView fx:id="listView" />
+            <ImageView fx:id="duckImage" StackPane.alignment="BOTTOM_LEFT" fitWidth="20" fitHeight="20"/>
+        </StackPane>
    </center>
    <bottom>
       <HBox spacing="3" BorderPane.alignment="CENTER">
-          <TextField fx:id="textField" promptText="Enter message..." HBox.hgrow="ALWAYS" onAction="#sendMessage"/>
-
+          <TextField fx:id="textField" onAction="#sendMessage" promptText="Quack..." HBox.hgrow="ALWAYS" />
           <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
-
       </HBox>
-
    </bottom>
-
 </BorderPane>
