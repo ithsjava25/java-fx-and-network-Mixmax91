@@ -91,6 +91,7 @@ public class HelloController {
         if (message.isEmpty()) {
             return;
         }
+
         model.addMessage(message);
         System.out.println(model.getObservableMessages().toString());
         listView.scrollTo(model.getObservableMessages().size() - 1);
