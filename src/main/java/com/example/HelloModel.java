@@ -2,9 +2,10 @@ package com.example;
 
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,54 +14,42 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 
+/**
+ * TODO: Spara meddelanden i fil
+ * TODO: Lägg till tidstämpel på meddelanden
+ * TODO: Threads?
+ * TODO: Exception tappa anslutning?
+ * TODO: Gör så att man kan välja topicnamn
+ * TODO: Make app side scrollable
+ */
+
 public class HelloModel {
 
-    private ObservableList<String> observableMessages;
+    private final NtfyConnection connection;
 
-    private final String hostName;
+    private final ObservableList<String> observableMessages;
 
-    public HelloModel() {
 
-        Dotenv dotenv = Dotenv.load();
-        hostName = Objects.requireNonNull(dotenv.get("HOST_NAME"));
+
+    public HelloModel(NtfyConnection connection) {
+
+        this.connection = connection;
 
         observableMessages = FXCollections.observableArrayList();
+        receiveMessages();
     }
 
     public ObservableList<String> getObservableMessages() {
         return observableMessages;
     }
 
-    public void setObservableMessages(ObservableList<String> observableMessages) {
-        this.observableMessages = observableMessages;
-    }
-
-    public void addMessage(String message) {
-        observableMessages.add(message);
-        sendToClient(message);
-
-        //Todo: send message with https
-
-    }
-
     public void sendToClient(String message) {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(message))
-                .uri(URI.create(hostName + "/mytopic"))
-                .build();
-
-        try {
-            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            System.out.println("Error sending message");
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted sending message");
-        }
+        connection.send(message);
 
     }
 
-
-
-
+    public void receiveMessages() {
+        connection.receive(s -> Platform.runLater(() -> observableMessages.add(s.message())));
+    }
 }
+

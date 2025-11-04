@@ -14,13 +14,10 @@ import javafx.util.Duration;
  */
 public class HelloController {
 
-    private final HelloModel model = new HelloModel();
+    private final HelloModel model = new HelloModel(new NtfyConnector());
 
     @FXML
     public ImageView hugeAnka;
-
-    @FXML
-    private Label messageLabel;
 
     @FXML
     private ImageView ankImage;
@@ -92,8 +89,7 @@ public class HelloController {
             return;
         }
 
-        model.addMessage(message);
-        System.out.println(model.getObservableMessages().toString());
+        model.sendToClient(message);
         listView.scrollTo(model.getObservableMessages().size() - 1);
         launchTheDuck();
         textField.clear();
