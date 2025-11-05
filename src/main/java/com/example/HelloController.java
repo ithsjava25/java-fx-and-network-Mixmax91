@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -117,6 +118,7 @@ public class HelloController {
             private final Label messageText = new Label();
             private final Label timeStamp = new Label();
             private final Button deleteButton = new Button("Delete");
+            private final VBox attachmentBox = new VBox();
 
             {
                 messageText.getStyleClass().add("cell-style");
@@ -126,6 +128,10 @@ public class HelloController {
                 HBox.setHgrow(spacer, Priority.ALWAYS);
                 messageBox.getChildren().addAll(deleteButton, messageText, timeStamp);
                 messageBox.setAlignment(Pos.CENTER_LEFT);
+
+                attachmentBox.setAlignment(Pos.CENTER_LEFT);
+                attachmentBox.setSpacing(10);
+                attachmentBox.getChildren().add(messageBox);
             }
 
 
@@ -144,8 +150,14 @@ public class HelloController {
                         model.getObservableMessages().remove(item);
                         dropTheDuck();
                     });
+                    if(item.attachment() != null && item.attachment().type().startsWith("image")) {
+                        ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
+                        attachmentImage.setFitHeight(150);
+                        attachmentImage.setPreserveRatio(true);
+                        attachmentBox.getChildren().add(attachmentImage);
+                    }
 
-                    setGraphic(messageBox);
+                    setGraphic(attachmentBox);
                 }
 
 

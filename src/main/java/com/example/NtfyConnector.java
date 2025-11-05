@@ -1,7 +1,6 @@
 package com.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import javafx.application.Platform;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -86,6 +84,7 @@ public class NtfyConnector implements NtfyConnection{
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
                 .thenAccept( response -> response.body()
+                        .peek(System.out::println)
                         .map(line ->
                                 mapper.readValue(line, NtfyMessageDto.class))
                         .filter(message -> message.event().equals("message"))
