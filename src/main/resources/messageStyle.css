@@ -6,7 +6,7 @@
 .time-stamp {
     -fx-font-size: 9px;
     -fx-font-style: italic;
-
+    -fx-text-fill: red;
     -fx-background-color: transparent;
 }
 .delete-button {

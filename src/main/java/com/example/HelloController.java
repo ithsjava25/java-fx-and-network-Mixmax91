@@ -111,8 +111,8 @@ public class HelloController {
 
             private final HBox messageBox = new HBox(10);
             private final Region spacer = new Region();
-            private final Text messageText = new Text();
-            private final Text timeStamp = new Text();
+            private final Label messageText = new Label();
+            private final Label timeStamp = new Label();
             private final Button deleteButton = new Button("Delete");
 
             {
