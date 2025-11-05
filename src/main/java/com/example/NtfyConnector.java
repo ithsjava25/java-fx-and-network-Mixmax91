@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -26,6 +27,32 @@ public class NtfyConnector implements NtfyConnection{
     public NtfyConnector(String hostName){
         this.hostName = hostName;
     }
+
+    @Override
+    public boolean sendAttachment(Path filePath, String fileType) {
+        try {
+        HttpRequest request = HttpRequest.newBuilder()
+                .PUT(HttpRequest.BodyPublishers.ofFile(filePath))
+                .uri(URI.create(hostName + "/JUV25D2"))
+                .header("Filename", filePath.getFileName().toString())
+                .build();
+
+
+            //Todo: handle long blocking send request to not freeze JavaFx thread
+            //TODO: Handle exception exceptionally?
+            //TODO: download docker desktop
+            //1. Use thread send message
+            //2. Use async?
+            var response = http.send(request, HttpResponse.BodyHandlers.discarding());
+        } catch (IOException e) {
+            System.out.println("Error sending message");
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted sending message");
+        }
+
+        return true;
+    }
+
 
     @Override
     public boolean send(String message) {

@@ -12,8 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -37,6 +42,8 @@ public class HelloController {
     @FXML
     private Button sendButton;
 
+    @FXML
+    private Button attachmentButton;
 
     @FXML
     private TextField textField;
@@ -80,10 +87,6 @@ public class HelloController {
         textField.clear();
     }
 
-//TODO:
-//    private String formatTimeStamp(Long timeStamp) {
-//
-//    }
     private void launchTheDuck() {
         ankImage.setTranslateY(0);
         TranslateTransition launch = new TranslateTransition();
@@ -138,7 +141,6 @@ public class HelloController {
                     messageText.setText(item.message());
                     timeStamp.setText(getFormattedString(item));
                     deleteButton.setOnAction(e -> {
-                        ;
                         model.getObservableMessages().remove(item);
                         dropTheDuck();
                     });
@@ -155,5 +157,27 @@ public class HelloController {
         Instant instant = Instant.ofEpochSecond(item.time());
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return localDateTime.format(formatter);
+    }
+
+    public void attachFile(ActionEvent actionEvent) {
+        System.out.println("Pressing attachment");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        File file = fileChooser.showOpenDialog(null);
+        try {
+            if (file != null) {
+                Path filePath = file.toPath();
+
+                String fileType = Files.probeContentType(filePath);
+
+                model.sendAttachmentToClient(filePath, fileType);
+
+            } else {
+                System.out.println("Couldnt find file");
+            }
+        } catch (IOException e) {
+            System.out.println("Couldnt find file");
+        }
+
     }
 }

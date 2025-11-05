@@ -4,9 +4,9 @@
     -fx-background-color: transparent;
 }
 .time-stamp {
-    -fx-font-size: 9px;
+    -fx-font-size: 10px;
     -fx-font-style: italic;
-    -fx-text-fill: red;
+    -fx-text-fill: rgba(100, 100, 100, 0.9);
     -fx-background-color: transparent;
 }
 .delete-button {

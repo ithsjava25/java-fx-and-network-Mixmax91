@@ -4,11 +4,11 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 
 /**
  * TODO: Spara meddelanden i fil
- * TODO: Lägg till tidstämpel på meddelanden
  * TODO: Threads?
  * TODO: Exception tappa anslutning?
  * TODO: Gör så att man kan välja topicnamn
@@ -38,11 +38,14 @@ public class HelloModel {
 
     public void sendToClient(String message) {
         connection.send(message);
-
     }
 
     public void receiveMessages() {
         connection.receive(s -> Platform.runLater(() -> observableMessages.add(s)));
+    }
+
+    public void sendAttachmentToClient(Path filePath, String fileType) {
+        connection.sendAttachment(filePath, fileType);
     }
 }
 

@@ -15,6 +15,7 @@
    <bottom>
       <HBox spacing="3" BorderPane.alignment="CENTER">
           <TextField fx:id="textField" onAction="#sendMessage" promptText="Quack..." HBox.hgrow="ALWAYS" />
+          <Button fx:id="attachmentButton" onAction="#attachFile" text="Attach file" />
           <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
       </HBox>
    </bottom>
