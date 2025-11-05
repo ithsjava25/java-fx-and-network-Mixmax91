@@ -113,25 +113,21 @@ public class HelloController {
     private void cellFactoryCreator() {
         listView.setCellFactory(listView -> new ListCell<>() {
 
-            private final HBox messageBox = new HBox(10);
+
             private final Region spacer = new Region();
-            private final Label messageText = new Label();
-            private final Label timeStamp = new Label();
-            private final Button deleteButton = new Button("Delete");
+
             private final VBox attachmentBox = new VBox();
 
             {
-                messageText.getStyleClass().add("cell-style");
-                timeStamp.getStyleClass().add("time-stamp");
-                deleteButton.getStyleClass().add("delete-button");
 
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-                messageBox.getChildren().addAll(deleteButton, messageText, timeStamp);
-                messageBox.setAlignment(Pos.CENTER_LEFT);
 
-                attachmentBox.setAlignment(Pos.CENTER_LEFT);
-                attachmentBox.setSpacing(10);
-                attachmentBox.getChildren().add(messageBox);
+
+
+
+
+
+
+
             }
 
 
@@ -144,12 +140,32 @@ public class HelloController {
                     setGraphic(null);
                     getStyleClass().add("cell-style"); //If I add transparancy inside the cell-style here, the cells doesn't block the background
                 } else {
-                    messageText.setText(item.message());
-                    timeStamp.setText(getFormattedString(item));
+                    attachmentBox.getChildren().clear();
+
+                    HBox messageBox = new HBox(10);
+                    messageBox.setAlignment(Pos.CENTER_LEFT);
+                    HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                    Label messageText = new Label(item.message());
+                    messageText.getStyleClass().add("cell-style");
+
+                    Label timeStamp = new Label(getFormattedString(item));
+                    timeStamp.getStyleClass().add("time-stamp");
+
+                    Button deleteButton = new Button("Delete");
+                    deleteButton.getStyleClass().add("delete-button");
                     deleteButton.setOnAction(e -> {
                         model.getObservableMessages().remove(item);
                         dropTheDuck();
                     });
+
+                    messageBox.getChildren().addAll(deleteButton, messageText, timeStamp);
+
+                    attachmentBox.getChildren().add(messageBox);
+                    attachmentBox.setAlignment(Pos.CENTER_LEFT);
+                    attachmentBox.setSpacing(10);
+
+
                     if(item.attachment() != null && item.attachment().type().startsWith("image")) {
                         ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
                         attachmentImage.setFitHeight(150);
