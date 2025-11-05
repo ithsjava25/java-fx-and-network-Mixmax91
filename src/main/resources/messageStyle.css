@@ -2,13 +2,16 @@
     -fx-font-size: 14px;
     -fx-text-fill: darkblue;
     -fx-background-color: transparent;
-    -fx-padding: 5px;
+}
+.time-stamp {
+    -fx-font-size: 9px;
+    -fx-text-fill: rgba(128, 128, 128, 0.6);
+    -fx-background-color: transparent;
 }
 .delete-button {
     -fx-font-size: 10px;
     -fx-background-color: orange;
     -fx-text-fill: white;
-    -fx-padding: 2px 5px;
 }
 
 .list-view {

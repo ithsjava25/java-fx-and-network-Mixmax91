@@ -27,7 +27,7 @@ public class HelloModel {
 
     private final NtfyConnection connection;
 
-    private final ObservableList<String> observableMessages;
+    private final ObservableList<NtfyMessageDto> observableMessages;
 
 
 
@@ -39,7 +39,7 @@ public class HelloModel {
         receiveMessages();
     }
 
-    public ObservableList<String> getObservableMessages() {
+    public ObservableList<NtfyMessageDto> getObservableMessages() {
         return observableMessages;
     }
 
@@ -49,7 +49,7 @@ public class HelloModel {
     }
 
     public void receiveMessages() {
-        connection.receive(s -> Platform.runLater(() -> observableMessages.add(s.message())));
+        connection.receive(s -> Platform.runLater(() -> observableMessages.add(s)));
     }
 }
 

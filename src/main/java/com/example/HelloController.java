@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -30,7 +32,7 @@ public class HelloController {
     private TextField textField;
 
     @FXML
-    private ListView<String> listView;
+    private ListView<NtfyMessageDto> listView;
 
 
     @FXML
@@ -42,31 +44,42 @@ public class HelloController {
         listView.setItems(model.getObservableMessages());
         sendButton.disableProperty().bind(textField.textProperty().isEmpty());
 
-        listView.setCellFactory(listView -> new ListCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
+        listView.setCellFactory(listView -> new ListCell<NtfyMessageDto>() {
 
-                Button deleteButton = new Button("Delete");
+            private final HBox messageBox = new HBox(10);
+            private final Text messageText = new Text();
+            private final Text timeStamp =  new Text();
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                messageText.getStyleClass().add("cell-style");
+                timeStamp.getStyleClass().add("time-stamp");
                 deleteButton.getStyleClass().add("delete-button");
-                deleteButton.setOnAction(e -> {;
-                        model.getObservableMessages().remove(item);
-                        dropTheDuck();
-                });
 
+                messageBox.getChildren().addAll(deleteButton, messageText, timeStamp);
+            }
+
+
+            @Override
+            protected void updateItem(NtfyMessageDto item, boolean empty) {
+                super.updateItem(item, empty);
 
                 if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
-                    getStyleClass().add("cell-style"); //If I add transparancy here, the cells doesn't block the background
+                    getStyleClass().add("cell-style"); //If I add transparancy inside the cell-style here, the cells doesn't block the background
                 } else {
-                    setText(item);
-                    setGraphic(deleteButton);
+                    messageText.setText(item.message());
+                    timeStamp.setText(item.time().toString());
+                    deleteButton.setOnAction(e -> {;
+                        model.getObservableMessages().remove(item);
+                        dropTheDuck();
+                    });
 
-                    if (!getStyleClass().contains("cell-style")) {
-                        getStyleClass().add("cell-style");
-                    }
+                    setGraphic(messageBox);
                 }
+
+
             }
         });
     }
