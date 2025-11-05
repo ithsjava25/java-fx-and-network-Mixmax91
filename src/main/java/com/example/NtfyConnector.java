@@ -28,6 +28,7 @@ public class NtfyConnector implements NtfyConnection{
 
     @Override
     public boolean sendAttachment(Path filePath, String fileType) {
+
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofFile(filePath))

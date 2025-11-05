@@ -196,8 +196,21 @@ public class HelloController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
         File file = fileChooser.showOpenDialog(null);
+
+        if (file == null) {
+            return;
+        }
+
+        if(checkIfFileToBig(file)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("File too big");
+            alert.setHeaderText(null);
+            alert.setContentText("Cannot send files bigger than 15 MB");
+            alert.showAndWait();
+            return;
+        }
         try {
-            if (file != null) {
+            if (file.exists()) {
                 Path filePath = file.toPath();
 
                 String fileType = Files.probeContentType(filePath);
@@ -205,11 +218,21 @@ public class HelloController {
                 model.sendAttachmentToClient(filePath, fileType);
 
             } else {
-                System.out.println("Couldnt find file");
+                System.out.println("Couldn't find file");
             }
         } catch (IOException e) {
-            System.out.println("Couldnt find file");
+            System.out.println("Couldn't find file");
         }
 
+    }
+
+    private boolean checkIfFileToBig(File file) {
+        if (file.isFile()){
+            long maxSize = 15L * 1024 * 1024;
+            if (file.length() > maxSize) {
+                return true;
+            }
+        }
+        return false;
     }
 }
