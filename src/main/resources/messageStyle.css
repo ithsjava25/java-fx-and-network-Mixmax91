@@ -14,6 +14,11 @@
     -fx-background-color: orange;
     -fx-text-fill: white;
 }
+.download-button {
+    -fx-font-size: 10px;
+    -fx-background-color: green;
+    -fx-text-fill: black;
+}
 
 .list-view {
     -fx-background-image: url("serene-duck-close-up-stockcake.jpg");

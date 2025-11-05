@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,8 +19,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -118,19 +123,6 @@ public class HelloController {
 
             private final VBox attachmentBox = new VBox();
 
-            {
-
-
-
-
-
-
-
-
-
-            }
-
-
             @Override
             protected void updateItem(NtfyMessageDto item, boolean empty) {
                 super.updateItem(item, empty);
@@ -166,13 +158,25 @@ public class HelloController {
                     attachmentBox.setSpacing(10);
 
 
-                    if(item.attachment() != null && item.attachment().type().startsWith("image")) {
-                        ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
-                        attachmentImage.setFitHeight(150);
-                        attachmentImage.setPreserveRatio(true);
-                        attachmentBox.getChildren().add(attachmentImage);
+                    if(item.attachment() != null) {
+                        if (item.attachment().type().startsWith("image")) {
+                            ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
+                            attachmentImage.setFitHeight(150);
+                            attachmentImage.setPreserveRatio(true);
+                            attachmentBox.getChildren().add(attachmentImage);
+                        } else {
+                            Button downloadButton = new Button("Download" +  item.attachment().name());
+                            downloadButton.getStyleClass().add("download-button");
+                            downloadButton.setOnAction(e -> {
+                            try {
+                                Desktop.getDesktop().browse(URI.create(item.attachment().url()));
+                            } catch (IOException ex) {
+                                System.out.println("Could not find file source");
+                            }
+                            });
+                            attachmentBox.getChildren().add(downloadButton);
+                        }
                     }
-
                     setGraphic(attachmentBox);
                 }
 
