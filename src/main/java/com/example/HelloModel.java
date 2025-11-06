@@ -19,7 +19,7 @@ public class HelloModel {
 
     private final NtfyConnection connection;
     private final ObservableList<NtfyMessageDto> observableMessages;
-    private final StringProperty topic = new SimpleStringProperty("mytopic");
+    private final StringProperty topic = new SimpleStringProperty("default");
 
     public HelloModel(NtfyConnection connection) {
 

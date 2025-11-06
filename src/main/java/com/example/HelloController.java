@@ -55,6 +55,9 @@ public class HelloController {
     public Button menuButton;
 
     @FXML
+    public TextField topicTextField;
+
+    @FXML
     private ImageView ankImage;
 
     @FXML
@@ -285,5 +288,10 @@ public class HelloController {
 
     public void openMenu(ActionEvent actionEvent) {
         chatRoomsPanel.setVisible(!chatRoomsPanel.isVisible());
+    }
+
+    public void customTopic(ActionEvent actionEvent) {
+        String newTopic = topicTextField.getText();
+        model.topicProperty().set(newTopic);
     }
 }

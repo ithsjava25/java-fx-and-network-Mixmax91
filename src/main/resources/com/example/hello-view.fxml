@@ -12,11 +12,12 @@
         </HBox>
     </top>
     <right>
-        <VBox fx:id="chatRoomsPanel" spacing="8" visible="false">
+        <VBox fx:id="chatRoomsPanel" spacing="8" visible="false" alignment="TOP_RIGHT">
             <Button text="mytopic" styleClass="mytopic-button" onAction="#switchToMytopic"/>
             <Button text="JUV25D" styleClass="juv-button" onAction="#switchToJUV25D"/>
             <Button text="ITHS" styleClass="iths-button" onAction="#switchToITHS"/>
             <Button text="Random" styleClass="random-button" onAction="#switchToRandom"/>
+            <TextField fx:id="topicTextField" promptText="Enter custom chatroom..." styleClass="message-field" onAction="#customTopic" HBox.hgrow="ALWAYS"/>
         </VBox>
     </right>
     <center>
