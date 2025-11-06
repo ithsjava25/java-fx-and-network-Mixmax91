@@ -4,8 +4,21 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane stylesheets="@/messageStyle.css" styleClass="root-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
+<BorderPane styleClass="root-pane" stylesheets="@/messageStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
+    <top>
+        <HBox>
+            <Label styleClass="currentclassroom-label" text="Current chatroom: "/>
+            <Label fx:id="topicLabel" styleClass="topic-label" text="Current chatroom: "/>
+        </HBox>
+    </top>
+    <right>
+        <VBox fx:id="chatRoomsPanel" spacing="8" visible="false">
+            <Button text="mytopic" styleClass="mytopic-button" onAction="#switchToMytopic"/>
+            <Button text="JUV25D" styleClass="juv-button" onAction="#switchToJUV25D"/>
+            <Button text="ITHS" styleClass="iths-button" onAction="#switchToITHS"/>
+            <Button text="Random" styleClass="random-button" onAction="#switchToRandom"/>
+        </VBox>
+    </right>
     <center>
         <StackPane>
             <ListView fx:id="listView" styleClass="list-view" />
@@ -14,10 +27,11 @@
         </StackPane>
    </center>
    <bottom>
-      <HBox spacing="3" BorderPane.alignment="CENTER" styleClass="hbox-bottom">
-          <TextField fx:id="textField" styleClass="message-field" onAction="#sendMessage" promptText="Quack..." HBox.hgrow="ALWAYS" />
-          <Button fx:id="attachmentButton" styleClass="attachment-button" onAction="#attachFile" text="Attach file" />
-          <Button fx:id="sendButton" styleClass="send-button" onAction="#sendMessage" text="Send" />
+      <HBox spacing="3" styleClass="hbox-bottom" BorderPane.alignment="CENTER">
+          <TextField fx:id="textField" onAction="#sendMessage" promptText="Quack..." styleClass="message-field" HBox.hgrow="ALWAYS" />
+          <Button fx:id="sendButton" onAction="#sendMessage" styleClass="send-button" text="Send" />
+          <Button fx:id="attachmentButton" onAction="#attachFile" styleClass="attachment-button" text="Attach file" />
+          <Button fx:id="menuButton" styleClass="menu-button" onAction="#openMenu" text="Chat Rooms"/>
       </HBox>
    </bottom>
 </BorderPane>

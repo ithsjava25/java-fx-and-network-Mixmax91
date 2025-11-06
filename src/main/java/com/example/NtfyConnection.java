@@ -5,10 +5,10 @@ import java.util.function.Consumer;
 
 public interface NtfyConnection {
 
-    public boolean sendAttachment(Path filePath, String fileType);
+    public boolean sendAttachment(Path filePath, String fileType, String topic);
 
-    public boolean send(String message);
+    public boolean send(String message, String topic);
 
-    public void receive(Consumer<NtfyMessageDto> messageHandler);
+    public void receive(Consumer<NtfyMessageDto> messageHandler, String topic);
 
 }

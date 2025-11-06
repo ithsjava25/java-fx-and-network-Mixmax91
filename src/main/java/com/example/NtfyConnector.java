@@ -27,12 +27,12 @@ public class NtfyConnector implements NtfyConnection{
     }
 
     @Override
-    public boolean sendAttachment(Path filePath, String fileType) {
+    public boolean sendAttachment(Path filePath, String fileType, String topic) {
 
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofFile(filePath))
-                .uri(URI.create(hostName + "/JUV25D2"))
+                .uri(URI.create(hostName + "/" + topic))
                 .header("Filename", filePath.getFileName().toString())
                 .build();
 
@@ -54,11 +54,11 @@ public class NtfyConnector implements NtfyConnection{
 
 
     @Override
-    public boolean send(String message) {
+    public boolean send(String message, String topic) {
 
                 HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(message))
-                .uri(URI.create(hostName + "/JUV25D2"))
+                .uri(URI.create(hostName + "/" + topic))
                 .build();
 
         try {
@@ -77,10 +77,10 @@ public class NtfyConnector implements NtfyConnection{
     }
 
     @Override
-    public void receive(Consumer<NtfyMessageDto> messageHandler) {
+    public void receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(hostName + "/JUV25D2/json"))
+                .uri(URI.create(hostName + "/"+ topic + "/json"))
                 .build();
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())

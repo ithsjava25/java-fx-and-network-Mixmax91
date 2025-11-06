@@ -11,8 +11,7 @@ public final class UserConfig {
     private final StringProperty topic = new SimpleStringProperty(this, "topic", "");
     private final StringProperty password = new SimpleStringProperty(this, "password", "");
 
-    public UserConfig(String username, String topic) {
-        this.username.set(username);
+    public UserConfig(String topic) {
         this.topic.set(topic);
     }
 

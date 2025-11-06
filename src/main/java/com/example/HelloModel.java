@@ -1,6 +1,8 @@
 package com.example;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.nio.file.Path;
@@ -17,14 +19,37 @@ public class HelloModel {
 
     private final NtfyConnection connection;
     private final ObservableList<NtfyMessageDto> observableMessages;
+    private final StringProperty topic = new SimpleStringProperty("mytopic");
 
     public HelloModel(NtfyConnection connection) {
 
         this.connection = connection;
 
-        UserConfig userConfig = new UserConfig("Name", "mytopic");
         observableMessages = FXCollections.observableArrayList();
-        receiveMessages();
+
+        topic.addListener((obs, oldTopic, newTopic) -> {
+            observableMessages.clear();
+            startReceivingWithTopic(newTopic);
+        });
+
+        startReceivingWithTopic(topic.get());
+
+    }
+
+    private void startReceivingWithTopic(String topic) {
+        connection.receive(message -> Platform.runLater(() -> addObservableMessage(message)), topic);
+    }
+
+    public String getTopic() {
+        return topic.get();
+    }
+
+    public StringProperty topicProperty() {
+        return topic;
+    }
+
+    public void setTopic(String newTopic) {
+        topic.set(newTopic);
     }
 
     public ObservableList<NtfyMessageDto> getObservableMessages() {
@@ -35,17 +60,12 @@ public class HelloModel {
         observableMessages.add(dto);
     }
 
-
     public void sendToClient(String message) {
-        connection.send(message);
-    }
-
-    public void receiveMessages() {
-        connection.receive(s -> Platform.runLater(() -> addObservableMessage(s)));
+        connection.send(message, topicProperty().get());
     }
 
     public void sendAttachmentToClient(Path filePath, String fileType) {
-        connection.sendAttachment(filePath, fileType);
+        connection.sendAttachment(filePath, fileType, topicProperty().get());
     }
 }
 

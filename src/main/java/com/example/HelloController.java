@@ -1,6 +1,8 @@
 package com.example;
 
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -28,6 +30,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  * Controller layer: mediates between the view (FXML) and the model.
@@ -38,8 +41,18 @@ public class HelloController {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+
+    @FXML
+    public Label topicLabel;
+
     @FXML
     public ImageView hugeAnka;
+
+    @FXML
+    public VBox chatRoomsPanel;
+
+    @FXML
+    public Button menuButton;
 
     @FXML
     private ImageView ankImage;
@@ -56,8 +69,11 @@ public class HelloController {
     @FXML
     private ListView<NtfyMessageDto> listView;
 
+    private final Random random = new Random();
+
     @FXML
     private void initialize() {
+        topicLabel.textProperty().bind(model.topicProperty());
         hugeAnka.setImage(new Image("duck.png"));
         hugeAnka.setVisible(false);
         ankImage.setImage(new Image("duckcolored.png"));
@@ -249,5 +265,25 @@ public class HelloController {
 
     public void closeWindow(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public void switchToMytopic(ActionEvent actionEvent) {
+        model.topicProperty().set("mytopic");
+    }
+
+    public void switchToJUV25D(ActionEvent actionEvent) {
+        model.topicProperty().set("JUV25D");
+    }
+
+    public void switchToITHS(ActionEvent actionEvent) {
+        model.topicProperty().set("ITHS");
+    }
+
+    public void switchToRandom(ActionEvent actionEvent) {
+        model.topicProperty().set("Chatroom" + random.nextInt(10000));
+    }
+
+    public void openMenu(ActionEvent actionEvent) {
+        chatRoomsPanel.setVisible(!chatRoomsPanel.isVisible());
     }
 }
