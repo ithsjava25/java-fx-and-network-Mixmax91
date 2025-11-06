@@ -17,10 +17,11 @@
 .time-stamp {
     -fx-font-size: 10px;
     -fx-font-style: italic;
-    -fx-text-fill: rgba(46, 139, 87, 0.8); /* soft moss green tint */
-    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;                     /* high-contrast white text */
+    -fx-background-color: rgba(46, 139, 87, 0.5); /* translucent moss green background */
+    -fx-background-radius: 6px;                 /* rounded edges for the timestamp */
     -fx-alignment: CENTER_RIGHT;
-    -fx-padding: 0 4 0 8; /* small spacing from message text */
+    -fx-padding: 2 6 2 6;                       /* space inside the timestamp bubble */
 }
 
 .delete-button {
@@ -53,14 +54,6 @@
     -fx-text-fill: black;
 }
 
-.list-view {
-    -fx-background-image: url("serene-duck-close-up-stockcake.jpg");
-    -fx-background-position: center;
-    -fx-background-size: 800, 480;
-    -fx-background-repeat: no-repeat;
-
-
-}
 
 .attachment-button {
     -fx-font-size: 11px;
@@ -83,14 +76,15 @@
 
 /*pressed effect */
 .attachment-button:pressed {
-    -fx-background-color: #b0c4b1;
+    -fx-background-color: rgba(192,255,192,0.9);
     -fx-border-color: #4f7942;
 }
 
 .list-view {
-
+    -fx-background-color: transparent;
+    -fx-background-size: cover;  /* make it scale to fill */
     -fx-background-insets: 0;
-    -fx-padding: 8 0 8 0;
+    -fx-padding: 0;               /* no padding to block edges */
     -fx-border-color: transparent;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -98,7 +92,7 @@
 
 .message-field {
     -fx-font-size: 11px;
-    -fx-background-color: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+    -fx-background-color: rgba(255,255,255,0.8);
     -fx-text-fill: #2e8b57;
     -fx-border-color: #8fbc8f;
     -fx-border-width: 1.5px;
@@ -115,7 +109,7 @@
 
 .send-button {
     -fx-font-size: 11px;
-    -fx-background-color: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    -fx-background-color: rgba(192,255,192,0.9);
     -fx-text-fill: #2e8b57;
     -fx-border-color: #8fbc8f;
     -fx-border-width: 1.5px;
@@ -136,4 +130,27 @@
 .send-button:pressed {
     -fx-background-color: #b0c4b1;
     -fx-border-color: #4f7942;
+}
+
+.hbox-bottom {
+    -fx-background-color: rgba(255,255,255,0.0);
+    -fx-padding: 8 10 8 10;
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.root-pane {
+    -fx-background-image: url("serene-duck-close-up-stockcake.jpg");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0, 0, 2);
 }

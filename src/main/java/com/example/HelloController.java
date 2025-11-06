@@ -56,10 +56,8 @@ public class HelloController {
     @FXML
     private ListView<NtfyMessageDto> listView;
 
-
     @FXML
     private void initialize() {
-
         hugeAnka.setImage(new Image("duck.png"));
         hugeAnka.setVisible(false);
         ankImage.setImage(new Image("duckcolored.png"));
@@ -138,6 +136,8 @@ public class HelloController {
                     HBox.setHgrow(spacer, Priority.ALWAYS);
 
                     Label messageText = new Label(item.message());
+                    messageText.setWrapText(true);
+                    messageText.setMaxWidth(400);
                     messageText.getStyleClass().add("cell-style");
 
                     Label timeStamp = new Label(getFormattedString(item));
@@ -245,5 +245,9 @@ public class HelloController {
 
     public void setAttachmentButton(Button attachmentButton) {
         this.attachmentButton = attachmentButton;
+    }
+
+    public void closeWindow(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }
