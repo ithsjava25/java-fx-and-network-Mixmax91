@@ -7,16 +7,16 @@
 <BorderPane stylesheets="@/messageStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
     <center>
         <StackPane>
-            <ListView fx:id="listView" />
+            <ListView fx:id="listView" styleClass="list-view" />
             <ImageView fx:id="ankImage" fitHeight="20" fitWidth="20" onMouseClicked="#makeAnkaVisible" StackPane.alignment="BOTTOM_LEFT" />
             <ImageView fx:id="hugeAnka" fitHeight="200" fitWidth="200" />
         </StackPane>
    </center>
    <bottom>
-      <HBox spacing="3" BorderPane.alignment="CENTER">
-          <TextField fx:id="textField" onAction="#sendMessage" promptText="Quack..." HBox.hgrow="ALWAYS" />
-          <Button fx:id="attachmentButton" onAction="#attachFile" text="Attach file" />
-          <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
+      <HBox spacing="3" BorderPane.alignment="CENTER" styleClass="hbox-bottom">
+          <TextField fx:id="textField" styleClass="message-field" onAction="#sendMessage" promptText="Quack..." HBox.hgrow="ALWAYS" />
+          <Button fx:id="attachmentButton" styleClass="attachment-button" onAction="#attachFile" text="Attach file" />
+          <Button fx:id="sendButton" styleClass="send-button" onAction="#sendMessage" text="Send" />
       </HBox>
    </bottom>
 </BorderPane>

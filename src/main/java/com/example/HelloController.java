@@ -145,12 +145,20 @@ public class HelloController {
 
                     Button deleteButton = new Button("Delete");
                     deleteButton.getStyleClass().add("delete-button");
+
+                    ImageView duck = new ImageView(new Image("duckcolored.png"));
+                    duck.setFitWidth(26);
+                    duck.setFitHeight(26);
+                    duck.setPreserveRatio(true);
+                    duck.setSmooth(true);
+                    duck.setCache(true);
+
                     deleteButton.setOnAction(e -> {
                         model.getObservableMessages().remove(item);
                         dropTheDuck();
                     });
 
-                    messageBox.getChildren().addAll(deleteButton, messageText, timeStamp);
+                    messageBox.getChildren().addAll(deleteButton, messageText, timeStamp, duck);
 
                     attachmentBox.getChildren().add(messageBox);
                     attachmentBox.setAlignment(Pos.CENTER_LEFT);
