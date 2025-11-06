@@ -11,6 +11,7 @@ A JavaFX-based chat client using [ntfy](https://docs.ntfy.sh/) for backend messa
 - Unit tests for `Model` class
 - (Advanced) Send files via "Attach local file" option
 
+
 ## 🚀 Run Instructions
 1. Set `JAVA_HOME` to JDK 25
 2. Start with:

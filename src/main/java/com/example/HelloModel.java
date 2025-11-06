@@ -3,7 +3,6 @@ package com.example;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.nio.file.Path;
 
 /**
@@ -16,15 +15,14 @@ import java.nio.file.Path;
 
 public class HelloModel {
 
-
     private final NtfyConnection connection;
-
     private final ObservableList<NtfyMessageDto> observableMessages;
 
     public HelloModel(NtfyConnection connection) {
 
         this.connection = connection;
 
+        UserConfig userConfig = new UserConfig("Name", "mytopic");
         observableMessages = FXCollections.observableArrayList();
         receiveMessages();
     }

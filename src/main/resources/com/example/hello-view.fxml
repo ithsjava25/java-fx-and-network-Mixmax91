@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
 <BorderPane stylesheets="@/messageStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
     <center>
         <StackPane>
             <ListView fx:id="listView" />
-            <ImageView fx:id="ankImage" StackPane.alignment="BOTTOM_LEFT" fitWidth="20" fitHeight="20" onMouseClicked="#makeAnkaVisible"/>
-            <ImageView fx:id="hugeAnka" fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="ankImage" fitHeight="20" fitWidth="20" onMouseClicked="#makeAnkaVisible" StackPane.alignment="BOTTOM_LEFT" />
+            <ImageView fx:id="hugeAnka" fitHeight="200" fitWidth="200" />
         </StackPane>
    </center>
    <bottom>
