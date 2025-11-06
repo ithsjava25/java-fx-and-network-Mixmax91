@@ -15,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
@@ -83,6 +82,7 @@ public class HelloController {
 
     public void sendMessage(ActionEvent actionEvent) {
         String message = textField.getText().trim();
+
         if (message.isEmpty()) {
             return;
         }
@@ -100,7 +100,6 @@ public class HelloController {
         launch.setDuration(Duration.seconds(0.5));
         launch.setByY(-500);
         launch.play();
-
     }
 
     private void dropTheDuck() {
@@ -157,7 +156,6 @@ public class HelloController {
                     attachmentBox.setAlignment(Pos.CENTER_LEFT);
                     attachmentBox.setSpacing(10);
 
-
                     if(item.attachment() != null) {
                         if (item.attachment().type().startsWith("image")) {
                             ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
@@ -179,8 +177,6 @@ public class HelloController {
                     }
                     setGraphic(attachmentBox);
                 }
-
-
             }
         });
     }
@@ -192,7 +188,6 @@ public class HelloController {
     }
 
     public void attachFile(ActionEvent actionEvent) {
-        System.out.println("Pressing attachment");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
         File file = fileChooser.showOpenDialog(null);
@@ -234,5 +229,13 @@ public class HelloController {
             }
         }
         return false;
+    }
+
+    public Button getAttachmentButton() {
+        return attachmentButton;
+    }
+
+    public void setAttachmentButton(Button attachmentButton) {
+        this.attachmentButton = attachmentButton;
     }
 }

@@ -85,17 +85,10 @@ public class NtfyConnector implements NtfyConnection{
 
         http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
                 .thenAccept( response -> response.body()
-                        .peek(System.out::println)
                         .map(line ->
                                 mapper.readValue(line, NtfyMessageDto.class))
                         .filter(message -> message.event().equals("message"))
                         .forEach(messageHandler));
 
     }
-
-//    public void extractMessage(NtfyMessageDto ntfyMessage) {
-//        //TODO: Extract messages från datan
-//
-//        Platform.runLater(() -> observableMessages.add(ntfyMessage.message()));
-//    }
 }

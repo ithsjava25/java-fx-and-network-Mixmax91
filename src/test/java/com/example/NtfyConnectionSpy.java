@@ -6,9 +6,13 @@ import java.util.function.Consumer;
 public class NtfyConnectionSpy implements NtfyConnection {
 
     String message;
+    Path filePath;
+    String fileType;
 
     @Override
     public boolean sendAttachment(Path filePath, String fileType) {
+        this.filePath = filePath;
+        this.fileType = fileType;
         return true;
     }
 
