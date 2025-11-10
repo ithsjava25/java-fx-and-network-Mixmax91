@@ -170,7 +170,7 @@ public class HelloController {
 
                     Label messageText = new Label(item.message());
                     messageText.setWrapText(true);
-                    messageText.setMaxWidth(400);
+                    messageText.setMaxWidth(314);
                     messageText.getStyleClass().add("cell-style");
 
                     Label timeStamp = new Label(getFormattedString(item));
