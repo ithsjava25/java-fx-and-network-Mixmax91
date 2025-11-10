@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,23 +30,33 @@ class HelloModelTest {
 
         assertThat(spy.filePath).isEqualTo(Path.of("C:/Users/"));
         assertThat(spy.fileType).isEqualTo("image/png");
-
     }
 
     @Test
     @DisplayName("Given a model with a message to send when calling sendToClient then assert that it called connection.send")
     void sendToClientCallsConnectionWithMessageToSend() {
-        //Arrange
         var spy = new NtfyConnectionSpy();
         var model = new HelloModel(spy);
-        //Act
+
         model.sendToClient("Hello World");
-        //Assert
+
         assertThat(spy.message).isEqualTo("Hello World");
     }
 
     @Test
-    @DisplayName("When given a model with connection to mock server when sending http post request with body then verify that it calls server with correct url and body")
+    @DisplayName("Given a model and a String when calling ReceivingWithTopic then assert that it called connection.receive")
+    void startReceivingWithTopicCallsConnectionWithReceive() {
+        var spy = new NtfyConnectionSpy();
+        var model = new HelloModel(spy);
+        String newTopic = "newTopic";
+
+        model.startReceivingWithTopic(newTopic);
+
+        assertThat(spy.topic).isEqualTo("newTopic");
+    }
+
+    @Test
+    @DisplayName("Given a model with connection to mock server when sending http post request with body then verify that it calls server with correct url and body")
     void sendMessageToFakeServer(WireMockRuntimeInfo wmRuntimeInfo) {
         var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new HelloModel(connection);
@@ -60,7 +71,7 @@ class HelloModelTest {
     }
 
     @Test
-    @DisplayName("When given a model with connection to mock server when sending http post request with body and a 5second delay then verify the time it took")
+    @DisplayName("Given a model with connection to mock server when sending http post request with body and a 5second delay then verify the time it took")
     void sendMessageToFakeServerWithDelay(WireMockRuntimeInfo wmRuntimeInfo) {
         var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new HelloModel(connection);
@@ -81,6 +92,7 @@ class HelloModelTest {
     }
 
     @Test
+    @DisplayName("Given a model and Dto when calling add and get methods then returns correct size and value")
     void addObservableMessageAddsDtoAndGetObservableMessagesReturnsCorrectList() {
         var model = new HelloModel(new NtfyConnectionSpy());
         ObservableList<NtfyMessageDto> mockObservableMessages = FXCollections.observableArrayList();
@@ -96,6 +108,7 @@ class HelloModelTest {
     }
 
     @Test
+    @DisplayName("Given model and two different Dto when adding Dto to observableList then has correct size and contains corrects values")
     void addObservableMessageCanAddSeveralDto() {
         var model = new HelloModel(new NtfyConnectionSpy());
         ObservableList<NtfyMessageDto> mockObservableMessages = FXCollections.observableArrayList();
@@ -116,6 +129,7 @@ class HelloModelTest {
     }
 
     @Test
+    @DisplayName("Given model and dto when adding and removing then has correct size and values")
     void getObservableMessageCanRemoveItem() {
         var model = new HelloModel(new NtfyConnectionSpy());
         ObservableList<NtfyMessageDto> mockObservableMessages = FXCollections.observableArrayList();
@@ -139,6 +153,7 @@ class HelloModelTest {
 
 
     @Test
+    @DisplayName("Given model and connection when sending get request then verify connection made and url and topic")
     void sendGetRequestToFakeServer(WireMockRuntimeInfo wmRuntimeInfo){
         var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new HelloModel(connection);
@@ -148,5 +163,6 @@ class HelloModelTest {
         future.join();
         verify(getRequestedFor(urlEqualTo("/JUV25D/json")));
     }
+
 
 }

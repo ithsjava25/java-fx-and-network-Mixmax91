@@ -9,6 +9,7 @@ public class NtfyConnectionSpy implements NtfyConnection {
     String message;
     Path filePath;
     String fileType;
+    String topic;
 
     @Override
     public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
@@ -25,6 +26,7 @@ public class NtfyConnectionSpy implements NtfyConnection {
 
     @Override
     public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
+        this.topic = topic;
         return CompletableFuture.completedFuture(null);
     }
 }

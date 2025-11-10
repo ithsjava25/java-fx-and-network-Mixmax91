@@ -11,4 +11,4 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @param url
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record AttachmentDto(String name, String type, long size, long expires, String url){}
+public record Attachment(String name, String type, long size, long expires, String url){}

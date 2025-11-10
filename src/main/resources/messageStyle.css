@@ -36,13 +36,11 @@
     -fx-cursor: hand;
 }
 
-/* Hover effect */
 .delete-button:hover {
     -fx-background-color: linear-gradient(to bottom, #ff7f7f, #c33c3c);
     -fx-border-color: #8b0000;
 }
 
-/* Pressed effect */
 .delete-button:pressed {
     -fx-background-color: #b22222;
     -fx-border-color: #8b0000;
@@ -53,7 +51,6 @@
     -fx-background-color: green;
     -fx-text-fill: black;
 }
-
 
 .attachment-button {
     -fx-font-size: 11px;
@@ -67,14 +64,12 @@
     -fx-cursor: hand;
 }
 
-/* hover effect */
 .attachment-button:hover {
     -fx-background-color: linear-gradient(to bottom, #e6e6e6, #c0c0c0);
     -fx-border-color: #6b8e23;
     -fx-text-fill: #006400;
 }
 
-/*pressed effect */
 .attachment-button:pressed {
     -fx-background-color: rgba(192,255,192,0.9);
     -fx-border-color: #4f7942;
@@ -119,14 +114,12 @@
     -fx-cursor: hand;
 }
 
-/* hover effect */
 .send-button:hover {
     -fx-background-color: linear-gradient(to bottom, #e6e6e6, #c0c0c0);
     -fx-border-color: #6b8e23;
     -fx-text-fill: #006400;
 }
 
-/*pressed effect */
 .send-button:pressed {
     -fx-background-color: #b0c4b1;
     -fx-border-color: #4f7942;

@@ -13,23 +13,41 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+/**
+ * Implementation of NtfyConnection used to connect with http client
+ * Contains overloaded constructors for testing
+ */
+
 public class NtfyConnector implements NtfyConnection{
     private final HttpClient http = HttpClient.newHttpClient();
     private final String hostName;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Constructor loading hostname from .env
+     */
     public NtfyConnector(){
         Dotenv dotenv = Dotenv.load();
         hostName = Objects.requireNonNull(dotenv.get("HOST_NAME"));
     }
 
+    /**
+     * creates a new connection with specified hostname
+     * @param hostName
+     */
     public NtfyConnector(String hostName){
         this.hostName = hostName;
     }
 
+    /**
+     * Sends a file to client
+     * @param filePath path to file being sent to client
+     * @param fileType file type of the file as a string
+     * @param topic current topic/chatroom
+     * @return
+     */
     @Override
     public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
-
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofFile(filePath))
@@ -49,10 +67,14 @@ public class NtfyConnector implements NtfyConnection{
         }
     }
 
-
+    /**
+     *
+     * @param message message to be sent to client
+     * @param topic current topic/chatroom will be added after client root adress
+     * @return
+     */
     @Override
     public CompletableFuture<Void> send(String message, String topic) {
-
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(message))
                 .uri(URI.create(hostName + "/" + topic))
@@ -64,9 +86,14 @@ public class NtfyConnector implements NtfyConnection{
                     System.out.println("Error sending message");
                     return null;
                 });
-
     }
 
+    /**
+     *
+     * @param messageHandler a consumer used with incoming NtfyMessageDto objects
+     * @param topic current topic/chatroom will be added after client root adress
+     * @return
+     */
     @Override
     public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -80,6 +107,5 @@ public class NtfyConnector implements NtfyConnection{
                                 mapper.readValue(line, NtfyMessageDto.class))
                         .filter(message -> message.event().equals("message"))
                         .forEach(messageHandler));
-
     }
 }
