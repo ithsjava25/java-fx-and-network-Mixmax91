@@ -28,7 +28,7 @@ public class NtfyConnector implements NtfyConnection{
     }
 
     @Override
-    public boolean sendAttachment(Path filePath, String fileType, String topic) {
+    public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
 
         try {
         HttpRequest request = HttpRequest.newBuilder()
@@ -37,20 +37,16 @@ public class NtfyConnector implements NtfyConnection{
                 .header("Filename", filePath.getFileName().toString())
                 .build();
 
-
-            //Todo: handle long blocking send request to not freeze JavaFx thread
-            //TODO: Handle exception exceptionally?
-            //TODO: download docker desktop
-            //1. Use thread send message
-            //2. Use async?
-            var response = http.send(request, HttpResponse.BodyHandlers.discarding());
+            return http.sendAsync(request, HttpResponse.BodyHandlers.discarding())
+                    .thenAccept(response -> { /* nothing */})
+                    .exceptionally(throwable -> {
+                        System.out.println("Error sending message");
+                        return null;
+                    });
         } catch (IOException e) {
             System.out.println("Error sending message");
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted sending message");
+            return null;
         }
-
-        return true;
     }
 
 
@@ -62,11 +58,6 @@ public class NtfyConnector implements NtfyConnection{
                 .uri(URI.create(hostName + "/" + topic))
                 .build();
 
-        //Todo: handle long blocking send request to not freeze JavaFx thread
-        //TODO: Handle exception exceptionally?
-        //TODO: download docker desktop
-        //1. Use thread send message
-        //2. Use async?
         return http.sendAsync(request, HttpResponse.BodyHandlers.discarding())
                 .thenAccept(response -> { /* nothing */})
                 .exceptionally(throwable -> {

@@ -26,7 +26,7 @@ class HelloModelTest {
         Path mockFilePath = Path.of("C:/Users/");
         String fileType = "image/png";
 
-        model.sendAttachmentToClient(mockFilePath, fileType);
+        model.sendAttachmentToClient(mockFilePath, fileType).join();
 
         assertThat(spy.filePath).isEqualTo(Path.of("C:/Users/"));
         assertThat(spy.fileType).isEqualTo("image/png");

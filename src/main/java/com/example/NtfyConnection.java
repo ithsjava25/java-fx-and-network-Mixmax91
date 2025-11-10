@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 public interface NtfyConnection {
 
-    public boolean sendAttachment(Path filePath, String fileType, String topic);
+    public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic);
 
     public CompletableFuture<Void> send(String message, String topic);
 

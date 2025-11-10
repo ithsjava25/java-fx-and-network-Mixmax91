@@ -247,7 +247,7 @@ public class HelloController {
 
                 String fileType = Files.probeContentType(filePath);
 
-                model.sendAttachmentToClient(filePath, fileType);
+                model.sendAttachmentToClient(filePath, fileType).join();
 
             } else {
                 System.out.println("Couldn't find file");

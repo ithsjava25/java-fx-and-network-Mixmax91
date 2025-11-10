@@ -65,8 +65,8 @@ public class HelloModel {
         return connection.send(message, topicProperty().get());
     }
 
-    public void sendAttachmentToClient(Path filePath, String fileType) {
-        connection.sendAttachment(filePath, fileType, topicProperty().get());
+    public CompletableFuture<Void> sendAttachmentToClient(Path filePath, String fileType) {
+        return connection.sendAttachment(filePath, fileType, topicProperty().get());
     }
 }
 
