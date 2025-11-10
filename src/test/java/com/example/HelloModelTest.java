@@ -50,11 +50,34 @@ class HelloModelTest {
     void sendMessageToFakeServer(WireMockRuntimeInfo wmRuntimeInfo) {
         var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new HelloModel(connection);
-        stubFor(post("/JUV25D2").willReturn(ok()));
-        model.sendToClient("Hello World");
+        model.setTopic("JUV25D");
+
+        stubFor(post("/JUV25D").willReturn(ok()));
+        model.sendToClient("Hello World").join();
 
         //Verify call made to server
-        verify(postRequestedFor(urlEqualTo("/JUV25D2"))
+        verify(postRequestedFor(urlEqualTo("/JUV25D"))
+                .withRequestBody(equalTo("Hello World")));
+    }
+
+    @Test
+    @DisplayName("When given a model with connection to mock server when sending http post request with body and a 5second delay then verify the time it took")
+    void sendMessageToFakeServerWithDelay(WireMockRuntimeInfo wmRuntimeInfo) {
+        var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
+        var model = new HelloModel(connection);
+        model.setTopic("JUV25D");
+
+        stubFor(post("/JUV25D").willReturn(aResponse()
+                .withFixedDelay(5000)));
+
+        long delayStart = System.currentTimeMillis();
+        model.sendToClient("Hello World").join();
+        long delayDuration = System.currentTimeMillis() - delayStart;
+
+        assertThat(delayDuration).isGreaterThanOrEqualTo(5000);
+
+        //Verify call made to server
+        verify(postRequestedFor(urlEqualTo("/JUV25D"))
                 .withRequestBody(equalTo("Hello World")));
     }
 

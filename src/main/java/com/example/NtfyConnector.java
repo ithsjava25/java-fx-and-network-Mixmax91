@@ -10,6 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class NtfyConnector implements NtfyConnection{
@@ -54,26 +55,25 @@ public class NtfyConnector implements NtfyConnection{
 
 
     @Override
-    public boolean send(String message, String topic) {
+    public CompletableFuture<Void> send(String message, String topic) {
 
-                HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(message))
                 .uri(URI.create(hostName + "/" + topic))
                 .build();
 
-        try {
-            //Todo: handle long blocking send request to not freeze JavaFx thread
-            //TODO: Handle exception exceptionally?
-            //TODO: download docker desktop
-            //1. Use thread send message
-            //2. Use async?
-            var response = http.send(request, HttpResponse.BodyHandlers.discarding());
-        } catch (IOException e) {
-            System.out.println("Error sending message");
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted sending message");
-        }
-        return true;
+        //Todo: handle long blocking send request to not freeze JavaFx thread
+        //TODO: Handle exception exceptionally?
+        //TODO: download docker desktop
+        //1. Use thread send message
+        //2. Use async?
+        return http.sendAsync(request, HttpResponse.BodyHandlers.discarding())
+                .thenAccept(response -> { /* nothing */})
+                .exceptionally(throwable -> {
+                    System.out.println("Error sending message");
+                    return null;
+                });
+
     }
 
     @Override

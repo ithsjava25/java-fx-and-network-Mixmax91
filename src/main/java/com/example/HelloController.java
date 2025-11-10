@@ -1,6 +1,7 @@
 package com.example;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -99,15 +100,24 @@ public class HelloController {
 
     public void sendMessage(ActionEvent actionEvent) {
         String message = textField.getText().trim();
+        textField.clear();
 
         if (message.isEmpty()) {
             return;
         }
 
-        model.sendToClient(message);
-        listView.scrollTo(model.getObservableMessages().size() - 1);
-        launchTheDuck();
-        textField.clear();
+        textField.setDisable(true);
+        textField.setPromptText("Sending message");
+
+        model.sendToClient(message)
+                .thenRun(()-> {
+                    Platform.runLater(() -> {
+                        listView.scrollTo(model.getObservableMessages().size() - 1);
+                        launchTheDuck();
+                        textField.setPromptText("Quack...");
+                        textField.setDisable(false);
+                    });
+                });
     }
 
     private void launchTheDuck() {

@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * TODO: Spara meddelanden i fil
@@ -60,8 +61,8 @@ public class HelloModel {
         observableMessages.add(dto);
     }
 
-    public void sendToClient(String message) {
-        connection.send(message, topicProperty().get());
+    public CompletableFuture<Void> sendToClient(String message) {
+        return connection.send(message, topicProperty().get());
     }
 
     public void sendAttachmentToClient(Path filePath, String fileType) {
