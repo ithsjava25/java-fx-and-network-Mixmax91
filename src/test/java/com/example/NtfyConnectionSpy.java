@@ -24,7 +24,7 @@ public class NtfyConnectionSpy implements NtfyConnection {
     }
 
     @Override
-    public void receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
-
+    public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
+        return CompletableFuture.completedFuture(null);
     }
 }

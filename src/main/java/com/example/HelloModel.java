@@ -37,8 +37,8 @@ public class HelloModel {
 
     }
 
-    private void startReceivingWithTopic(String topic) {
-        connection.receive(message -> Platform.runLater(() -> addObservableMessage(message)), topic);
+    public CompletableFuture<Void> startReceivingWithTopic(String topic) {
+        return connection.receive(message -> Platform.runLater(() -> addObservableMessage(message)), topic);
     }
 
     public String getTopic() {

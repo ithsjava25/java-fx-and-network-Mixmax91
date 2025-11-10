@@ -10,6 +10,6 @@ public interface NtfyConnection {
 
     public CompletableFuture<Void> send(String message, String topic);
 
-    public void receive(Consumer<NtfyMessageDto> messageHandler, String topic);
+    public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic);
 
 }

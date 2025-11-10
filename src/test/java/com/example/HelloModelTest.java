@@ -1,15 +1,14 @@
 package com.example;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.lang3.SystemProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -139,18 +138,15 @@ class HelloModelTest {
 
 
 
-//    @Test
-//    void sendGetRequestToFakeServer(WireMockRuntimeInfo wmRuntimeInfo){
-//        var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
-//        var model = new HelloModel(connection);
-//        stubFor(get("/JUV25D2/json").willReturn(ok()));
-//        model.receiveMessages();
-//        try {
-//            Thread.sleep(200);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        verify(getRequestedFor(urlEqualTo("/JUV25D2/json")));
-//    }
+    @Test
+    void sendGetRequestToFakeServer(WireMockRuntimeInfo wmRuntimeInfo){
+        var connection = new NtfyConnector("http://localhost:" + wmRuntimeInfo.getHttpPort());
+        var model = new HelloModel(connection);
+
+        stubFor(get("/JUV25D/json").willReturn(ok()));
+        CompletableFuture<Void> future = model.startReceivingWithTopic("JUV25D");
+        future.join();
+        verify(getRequestedFor(urlEqualTo("/JUV25D/json")));
+    }
 
 }

@@ -68,13 +68,13 @@ public class NtfyConnector implements NtfyConnection{
     }
 
     @Override
-    public void receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
+    public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(hostName + "/"+ topic + "/json"))
                 .build();
 
-        http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
+        return http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
                 .thenAccept( response -> response.body()
                         .map(line ->
                                 mapper.readValue(line, NtfyMessageDto.class))
