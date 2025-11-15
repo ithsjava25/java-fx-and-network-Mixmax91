@@ -1,0 +1,295 @@
+.cell-style {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2e8b57;
+    -fx-background-color: transparent;
+    -fx-padding: 6 10 6 10;
+}
+
+.cell-style:hover {
+    -fx-background-color: rgba(143, 188, 143, 0.15);
+}
+
+.cell-style:selected {
+    -fx-background-color: rgba(143, 188, 143, 0.35);
+    -fx-text-fill: #1e5631;
+}
+
+.time-stamp {
+    -fx-font-size: 10px;
+    -fx-font-style: italic;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(46, 139, 87, 0.5);
+    -fx-background-radius: 6px;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 2 6 2 6;
+}
+
+.delete-button {
+    -fx-font-size: 9px;
+    -fx-background-color: linear-gradient(to bottom, #ff6b6b, #d84343);
+    -fx-text-fill: white;
+    -fx-border-color: #b22222;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 2 8 2 8;
+    -fx-cursor: hand;
+}
+
+.delete-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff7f7f, #c33c3c);
+    -fx-border-color: #8b0000;
+}
+
+.delete-button:pressed {
+    -fx-background-color: #b22222;
+    -fx-border-color: #8b0000;
+}
+
+.download-button {
+    -fx-font-size: 10px;
+    -fx-background-color: green;
+    -fx-text-fill: black;
+}
+
+.attachment-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    -fx-text-fill: #2e8b57;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+}
+
+.attachment-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e6e6e6, #c0c0c0);
+    -fx-border-color: #6b8e23;
+    -fx-text-fill: #006400;
+}
+
+.attachment-button:pressed {
+    -fx-background-color: rgba(192,255,192,0.9);
+    -fx-border-color: #4f7942;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    -fx-background-size: cover;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.message-field {
+    -fx-font-size: 11px;
+    -fx-background-color: rgba(255,255,255,0.8);
+    -fx-text-fill: #2e8b57;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 8 4 8;
+}
+
+.message-field:focused {
+    -fx-border-color: #6b8e23;
+    -fx-background-color: #f0f8f0;
+    -fx-effect: dropshadow(gaussian, rgba(107,142,35,0.25), 4, 0, 0, 1);
+}
+
+.send-button {
+    -fx-font-size: 11px;
+    -fx-background-color: rgba(192,255,192,0.9);
+    -fx-text-fill: #2e8b57;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e6e6e6, #c0c0c0);
+    -fx-border-color: #6b8e23;
+    -fx-text-fill: #006400;
+}
+
+.send-button:pressed {
+    -fx-background-color: #b0c4b1;
+    -fx-border-color: #4f7942;
+}
+
+.hbox-bottom {
+    -fx-background-color: rgba(255,255,255,0.0);
+    -fx-padding: 8 10 8 10;
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+.root-pane {
+    -fx-background-image: url("serene-duck-close-up-stockcake.jpg");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0, 0, 2);
+}
+
+.menu-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    -fx-text-fill: #2e8b57;
+    -fx-border-color: #8fbc8f;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e6e6e6, #c0c0c0);
+    -fx-border-color: #6b8e23;
+    -fx-text-fill: #006400;
+}
+
+.menu-button:pressed {
+    -fx-background-color: rgba(192,255,192,0.9);
+    -fx-border-color: #4f7942;
+}
+
+.menu-button .arrow {
+    -fx-background-color: #2e8b57;
+    -fx-background-radius: 50%;
+}
+
+.mytopic-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #d0f0c0, #a0d080);
+    -fx-text-fill: #1e5631;
+    -fx-border-color: #6b8e23;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.mytopic-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #c0e8b0, #90c060);
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #143a21;
+}
+
+.mytopic-button:pressed {
+    -fx-background-color: #8fbc8f;
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #ffffff;
+}
+
+.juv-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #e0f8d8, #b0e88f);
+    -fx-text-fill: #1e5631;
+    -fx-border-color: #6b8e23;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.juv-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d0f0b0, #90c060);
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #143a21;
+}
+
+.juv-button:pressed {
+    -fx-background-color: #8fbc8f;
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #ffffff;
+}
+
+.iths-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #f0ffe0, #c0e8a0);
+    -fx-text-fill: #1e5631;
+    -fx-border-color: #6b8e23;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.iths-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e0ffc0, #a0d860);
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #143a21;
+}
+
+.iths-button:pressed {
+    -fx-background-color: #8fbc8f;
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #ffffff;
+}
+
+.random-button {
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(to bottom, #e6f9d6, #b8e9a0);
+    -fx-text-fill: #1e5631;
+    -fx-border-color: #6b8e23;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.random-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d8f0b0, #90c060);
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #143a21;
+}
+
+.random-button:pressed {
+    -fx-background-color: #8fbc8f;
+    -fx-border-color: #4f7942;
+    -fx-text-fill: #ffffff;
+}
+
+.currentclassroom-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: normal;
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-background-color: rgba(46, 139, 87, 0.5);
+    -fx-background-radius: 4px;
+    -fx-padding: 2 6 2 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 2, 0, 0, 1);
+}
+
+.topic-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffa0;
+    -fx-background-color: rgba(34, 139, 34, 0.5);
+    -fx-background-radius: 4px;
+    -fx-padding: 2 6 2 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}

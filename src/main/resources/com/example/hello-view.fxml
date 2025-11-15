@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.Label?>
 
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.HelloController">
-    <children>
-        <Label fx:id="messageLabel" text="Hello, JavaFX!" />
-    </children>
-</StackPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="root-pane" stylesheets="@/messageStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.HelloController">
+    <top>
+        <HBox>
+            <Label styleClass="currentclassroom-label" text="Current chatroom: "/>
+            <Label fx:id="topicLabel" styleClass="topic-label" text="Current chatroom: "/>
+        </HBox>
+    </top>
+    <right>
+        <VBox fx:id="chatRoomsPanel" spacing="8" visible="false" alignment="TOP_RIGHT">
+            <Button text="mytopic" styleClass="mytopic-button" onAction="#switchToMytopic"/>
+            <Button text="JUV25D" styleClass="juv-button" onAction="#switchToJUV25D"/>
+            <Button text="ITHS" styleClass="iths-button" onAction="#switchToITHS"/>
+            <Button text="Random" styleClass="random-button" onAction="#switchToRandom"/>
+            <TextField fx:id="topicTextField" promptText="Enter custom chatroom..." styleClass="message-field" onAction="#customTopic" HBox.hgrow="ALWAYS"/>
+        </VBox>
+    </right>
+    <center>
+        <StackPane>
+            <ListView fx:id="listView" styleClass="list-view" />
+            <ImageView fx:id="ankImage" fitHeight="20" fitWidth="20" onMouseClicked="#makeAnkaVisible" StackPane.alignment="BOTTOM_LEFT" />
+            <ImageView fx:id="hugeAnka" fitHeight="200" fitWidth="200" />
+        </StackPane>
+   </center>
+   <bottom>
+      <HBox spacing="3" styleClass="hbox-bottom" BorderPane.alignment="CENTER">
+          <TextField fx:id="textField" onAction="#sendMessage" promptText="Quack..." styleClass="message-field" HBox.hgrow="ALWAYS" />
+          <Button fx:id="sendButton" onAction="#sendMessage" styleClass="send-button" text="Send" />
+          <Button fx:id="attachmentButton" onAction="#attachFile" styleClass="attachment-button" text="Attach file" />
+          <Button fx:id="menuButton" styleClass="menu-button" onAction="#openMenu" text="Chat Rooms"/>
+      </HBox>
+   </bottom>
+</BorderPane>
