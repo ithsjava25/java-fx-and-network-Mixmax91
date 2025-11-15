@@ -218,10 +218,23 @@ public class HelloController {
                             Button downloadButton = new Button("Download" +  item.attachment().name());
                             downloadButton.getStyleClass().add("download-button");
                             downloadButton.setOnAction(e -> {
-                            try {
-                                Desktop.getDesktop().browse(URI.create(item.attachment().url()));
+                                try {
+                                    URI uri = URI.create(item.attachment().url());
+                                    if (uri.getScheme() == null || (!uri.getScheme().equalsIgnoreCase("http") && !uri.getScheme().equalsIgnoreCase("https"))) {
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Invalid URL");
+                                        alert.setHeaderText(null);
+                                        alert.setContentText("Only HTTP and HTTPS URLs are supported");
+                                        alert.showAndWait();
+                                        return;
+                                    }
+                                        Desktop.getDesktop().browse(uri);
                             } catch (IOException ex) {
-                                System.out.println("Could not find file source");
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Could not open link: " + ex.getMessage());
+                                alert.showAndWait();
                             }
                             });
                             attachmentBox.getChildren().add(downloadButton);
