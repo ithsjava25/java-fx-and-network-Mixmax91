@@ -109,9 +109,6 @@ public class HelloController {
                         textField.setDisable(false);
                     });
                     return null;
-                }).exceptionally(throwable -> {
-                    System.out.println("Error sending message");
-                    return null;
                 });
     }
 
