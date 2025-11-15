@@ -97,13 +97,18 @@ public class HelloController {
         textField.setPromptText("Sending message");
 
         model.sendToClient(message)
-                .thenRun(()-> {
+                .handle((result, error) -> {
                     Platform.runLater(() -> {
-                        listView.scrollTo(model.getObservableMessages().size() - 1);
-                        launchTheDuck();
-                        textField.setPromptText("Quack..."); //Then
+                        if (error != null) {
+                            textField.setPromptText("Failed to send message");
+                        } else {
+                            listView.scrollTo(model.getObservableMessages().size() - 1);
+                            launchTheDuck();
+                            textField.setPromptText("Quack...");
+                        }
                         textField.setDisable(false);
                     });
+                    return null;
                 }).exceptionally(throwable -> {
                     System.out.println("Error sending message");
                     return null;

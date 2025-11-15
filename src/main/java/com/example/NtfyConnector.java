@@ -48,7 +48,7 @@ public class NtfyConnector implements NtfyConnection{
      */
     @Override
     public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
-        CompletableFuture<Void> failure = new CompletableFuture<>();
+
 
         try {
         HttpRequest request = HttpRequest.newBuilder()
@@ -63,9 +63,10 @@ public class NtfyConnector implements NtfyConnection{
                         System.out.println("Error sending message");
                         return null;
                     });
-        } catch (Exception throwable) {
+        } catch (Exception ex) {
             System.out.println("Error sending message");
-            failure.completeExceptionally(throwable);
+            CompletableFuture<Void> failure = new CompletableFuture<>();
+            failure.completeExceptionally(ex);
             return failure;
         }
     }
