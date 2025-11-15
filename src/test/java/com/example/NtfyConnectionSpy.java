@@ -15,12 +15,14 @@ public class NtfyConnectionSpy implements NtfyConnection {
     public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
         this.filePath = filePath;
         this.fileType = fileType;
+        this.topic = topic;
         return CompletableFuture.completedFuture(null);
     }
 
     @Override
     public CompletableFuture<Void> send(String message, String topic) {
         this.message = message;
+        this.topic = topic;
         return CompletableFuture.completedFuture(null);
     }
 

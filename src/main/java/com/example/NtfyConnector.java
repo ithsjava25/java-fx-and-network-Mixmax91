@@ -48,6 +48,8 @@ public class NtfyConnector implements NtfyConnection{
      */
     @Override
     public CompletableFuture<Void> sendAttachment(Path filePath, String fileType, String topic) {
+        CompletableFuture<Void> failure = new CompletableFuture<>();
+
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofFile(filePath))
@@ -61,9 +63,10 @@ public class NtfyConnector implements NtfyConnection{
                         System.out.println("Error sending message");
                         return null;
                     });
-        } catch (IOException e) {
+        } catch (Exception throwable) {
             System.out.println("Error sending message");
-            return null;
+            failure.completeExceptionally(throwable);
+            return failure;
         }
     }
 
@@ -102,10 +105,15 @@ public class NtfyConnector implements NtfyConnection{
                 .build();
 
         return http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
-                .thenAccept( response -> response.body()
-                        .map(line ->
-                                mapper.readValue(line, NtfyMessageDto.class))
-                        .filter(message -> message.event().equals("message"))
-                        .forEach(messageHandler));
+                        .thenAccept(response -> response.body().forEach(line -> {
+                            NtfyMessageDto message = mapper.readValue(line, NtfyMessageDto.class);
+                            if ("message".equals(message.event())) {
+                                    messageHandler.accept(message);
+                                }
+                        }))
+                        .exceptionally(throwable -> {
+                        System.out.println("Error receiving messages: " + throwable.getMessage());
+                        return null;
+                    });
     }
 }

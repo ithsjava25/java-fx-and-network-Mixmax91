@@ -104,6 +104,9 @@ public class HelloController {
                         textField.setPromptText("Quack..."); //Then
                         textField.setDisable(false);
                     });
+                }).exceptionally(throwable -> {
+                    System.out.println("Error sending message");
+                    return null;
                 });
     }
 
@@ -199,7 +202,13 @@ public class HelloController {
 
                     if(item.attachment() != null) {
                         if (item.attachment().type().startsWith("image")) {
-                            ImageView attachmentImage = new ImageView(new Image(item.attachment().url()));
+
+                            ImageView attachmentImage;
+                            try {
+                                    attachmentImage = new ImageView(new Image(item.attachment().url(), true));
+                                } catch (Exception e) {
+                                    attachmentImage = new ImageView(new Image("placeholder.png"));
+                                }
                             attachmentImage.setFitHeight(150);
                             attachmentImage.setPreserveRatio(true);
                             attachmentBox.getChildren().add(attachmentImage);
@@ -262,14 +271,39 @@ public class HelloController {
                 Path filePath = file.toPath();
 
                 String fileType = Files.probeContentType(filePath);
+                if (fileType == null) {
+                        fileType = "application/octet-stream"; // default MIME type
+                    }
 
-                model.sendAttachmentToClient(filePath, fileType).join();
+                String finalFileType = fileType;
+                model.sendAttachmentToClient(filePath, fileType)
+                            .thenRun(() -> Platform.runLater(() -> {
+                            // Success feedback
+                                    textField.setPromptText("Attachment sent!");
+                        }))
+                            .exceptionally(error -> {
+                            Platform.runLater(() -> {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Upload Failed");
+                                    alert.setContentText("Could not send attachment: " + error.getMessage());
+                                    alert.show();
+                                });
+                            return null;
+                        });
 
             } else {
-                System.out.println("Couldn't find file");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("File Error");
+                alert.setHeaderText("Unable to open the file");
+                alert.setContentText("The file could not be found or opened.");
+                alert.showAndWait();
             }
         } catch (IOException e) {
-            System.out.println("Couldn't find file");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("File Error");
+            alert.setHeaderText("Unable to open the file");
+            alert.setContentText("The file could not be found or opened.");
+            alert.showAndWait();
         }
 
     }
